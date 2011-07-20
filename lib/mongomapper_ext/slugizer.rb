@@ -40,9 +40,7 @@ module MongoMapperExt
         @slug_options ||= options
         @callback_type ||= begin
           type = options[:callback_type] || :before_validation
-
           send(type, :generate_slug, :on => :create)
-
           type
         end
 
