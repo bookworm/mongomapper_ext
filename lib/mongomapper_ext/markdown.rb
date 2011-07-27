@@ -35,7 +35,6 @@ module MongoMapperExt
         @mdkeys = keys
         @mdkeys.each do |k|     
           key_name = "#{k}_src"   
-          puts key_name.to_sym
           self.key key_name.to_sym, String 
         end
       end     
