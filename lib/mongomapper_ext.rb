@@ -34,7 +34,10 @@ require 'mongomapper_ext/update'
 require 'mongomapper_ext/filter'
 
 # slug
-require 'mongomapper_ext/slugizer'
+require 'mongomapper_ext/slugizer'     
+
+# markdown
+require 'mongomapper_ext/markdown'
 
 # tags
 require 'mongomapper_ext/tags'
