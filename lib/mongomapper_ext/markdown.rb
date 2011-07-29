@@ -11,8 +11,10 @@ module MongoMapperExt
     def gen_markdown()  
       self.class.mdkeys.each do |k|    
         key_name = "#{k}_src"  
-        eval("self.#{key_name} = self.#{k}")   
-        eval("self.#{k} = self.parse(self.#{key_name}).to_html") 
+        if !eval("self.#{k}.blank?")
+          eval("self.#{key_name} = self.#{k}")  
+          eval("self.#{k} = self.parse(self.#{key_name}).to_html")      
+        end
       end
     end       
   
