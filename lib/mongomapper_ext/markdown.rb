@@ -21,8 +21,9 @@ module MongoMapperExt
     def parse(text)   
       self.class.parser ||= 'redcarpet'    
       parser = self.class.parser
-      Redcarpet.new(text) if parser == 'redcarpet'     
-      Kramdown::Document.new(text) if parser == 'kramdown'
+      markdown = Redcarpet.new(text) if parser == 'redcarpet'     
+      markdown = Kramdown::Document.new(text) if parser == 'kramdown'       
+      return markdown
     end  
     
     module ClassMethods
