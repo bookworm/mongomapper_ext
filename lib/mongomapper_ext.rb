@@ -18,7 +18,8 @@ require 'mongomapper_ext/paginator'
 
 # types
 require 'mongomapper_ext/types/open_struct'
-require 'mongomapper_ext/types/timestamp'
+require 'mongomapper_ext/types/timestamp' 
+require 'mongomapper_ext/types/text'
 require 'mongomapper_ext/types/translation'
 
 # storage
