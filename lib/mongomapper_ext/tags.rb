@@ -4,7 +4,7 @@ module MongoMapperExt
       klass.class_eval do
         extend ClassMethods
 
-        key :tags, Array, :index => true
+        key :tags, Array
       end
     end
 

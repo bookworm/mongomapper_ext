@@ -5,7 +5,7 @@ module MongoMapperExt
         extend ClassMethods
         extend Finder
 
-        key :slug, String, :index => true
+        key :slug, String
       end
     end
 
