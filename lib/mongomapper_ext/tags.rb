@@ -6,6 +6,18 @@ module MongoMapperExt
 
         key :tags, Array
       end
+    end  
+    
+    def tags=(t)
+      if t.kind_of?(String)
+        t = t.downcase.split(",").join(" ").split(" ").uniq
+      end
+      self[:tags] = t
+    end
+
+    # Called When Displaying Tags
+    def tags()   
+      self[:tags].join(",")  
     end
 
     module ClassMethods
