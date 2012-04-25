@@ -2,7 +2,8 @@ module MongoMapperExt
   module Markdown     
     def self.included(klass)
       klass.class_eval do   
-        extend ClassMethods
+        extend ClassMethods         
+        
         before_save :gen_markdown      
         before_update :gen_markdown
       end   
@@ -21,12 +22,21 @@ module MongoMapperExt
     def parse(text)   
       self.class.parser ||= 'redcarpet'    
       parser = self.class.parser
-      markdown = Redcarpet.new(text) if parser == 'redcarpet'     
-      markdown = Kramdown::Document.new(text) if parser == 'kramdown'       
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
+              :autolink => true, :space_after_headers => true).render(text) if parser == 'redcarpet'     
+      markdown = Kramdown::Document.new(text) if parser == 'kramdown'   
       return markdown
     end  
     
-    module ClassMethods
+    module ClassMethods 
+      
+      def parser()
+        return @parser
+      end
+      
+      def parser=(parser)    
+        @parser = parser
+      end
            
       def markdown(*keys)   
         keys.each_with_index do |k, index|  
