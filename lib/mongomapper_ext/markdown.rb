@@ -13,8 +13,12 @@ module MongoMapperExt
       self.class.mdkeys.each do |k|    
         key_name = "#{k}_src"  
         if !eval("self.#{k}.blank?")
-          eval("self.#{key_name} = self.#{k}")  
-          eval("self.#{k} = self.parse(self.#{key_name}).to_html")      
+          eval("self.#{key_name} = self.#{k}")         
+          if self.class.parser == 'kramdown'
+            eval("self.#{k} = self.parse(self.#{key_name}).to_html")     
+          else
+            eval("self.#{k} = self.parse(self.#{key_name}).render(self.#{key_name})")    
+          end 
         end
       end
     end       
@@ -23,7 +27,7 @@ module MongoMapperExt
       self.class.parser ||= 'redcarpet'    
       parser = self.class.parser
       markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
-              :autolink => true, :space_after_headers => true).render(text) if parser == 'redcarpet'     
+              :autolink => true, :space_after_headers => true) if parser == 'redcarpet'     
       markdown = Kramdown::Document.new(text) if parser == 'kramdown'   
       return markdown
     end  
