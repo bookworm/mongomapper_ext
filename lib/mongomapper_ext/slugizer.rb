@@ -27,7 +27,7 @@ module MongoMapperExt
         slug = nil
       end
 
-      if slug && !self.class.slug_options[:unique]
+      if slug && self.class.slug_options[:unique]
         key = UUIDTools::UUID.random_create.hexdigest[0,4] #optimize
         self.slug = key+"-"+slug
       else
