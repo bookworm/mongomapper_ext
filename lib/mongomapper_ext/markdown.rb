@@ -13,11 +13,11 @@ module MongoMapperExt
       self.class.mdkeys.each do |k|    
         key_name = "#{k}_src"  
         if !eval("self.#{k}.blank?")
-          eval("self.#{key_name} = self.#{k}")         
+          eval("self[:#{key_name}] = self.#{k}")         
           if self.class.parser == 'kramdown'
             eval("self.#{k} = self.parse(self.#{key_name}).to_html")     
           else
-            eval("self.#{k} = self.parse(self.#{key_name}).render(self.#{key_name})")    
+            eval("self[:#{k}] = self.parse(self.#{key_name}).render(self.#{key_name})")    
           end 
         end
       end
