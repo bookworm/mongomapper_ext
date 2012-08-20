@@ -8,22 +8,21 @@ module MongoMapperExt
         before_update :gen_markdown
       end   
     end    
-    
+      
     def gen_markdown()  
       self.class.mdkeys.each do |k|    
         key_name = "#{k}_src"  
-        if !eval("self.#{k}.blank?")
-          eval("self[:#{key_name}] = self.#{k}")         
+        if !self.send(key_name.to_sym).blank?
           if self.class.parser == 'kramdown'
-            eval("self.#{k} = self.parse(self.#{key_name}).to_html")     
+            eval("self[:#{k}] = self.parse(self[:#{key_name}]).to_html")     
           else
-            eval("self[:#{k}] = self.parse(self.#{key_name}).render(self.#{key_name})")    
+            self.send("#{k}=".to_sym, self.parse.render(self.send(key_name.to_sym)))
           end 
         end
       end
-    end       
-  
-    def parse(text)   
+    end
+
+    def parse(text='')   
       self.class.parser ||= 'redcarpet'    
       parser = self.class.parser
       markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
