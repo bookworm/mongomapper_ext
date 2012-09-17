@@ -11,7 +11,7 @@ module MongoMapperExt
       
     def gen_markdown
       self.class.mdkeys.each do |k|    
-        key_name = "#{k}_md"  
+        key_name = "#{k}_html"  
         if !self.send(k.to_sym).blank?
           if self.class.parser == 'kramdown'
             eval("self[:#{key_name}] = self.parse(self[:#{k}]).to_html")     
@@ -50,7 +50,7 @@ module MongoMapperExt
         end 
         @mdkeys = keys
         @mdkeys.each do |k|     
-          key_name = "#{k}_md"   
+          key_name = "#{k}_html"   
           self.key key_name.to_sym, String 
         end
       end     
