@@ -5,7 +5,7 @@ module MongoMapperExt
         extend ClassMethods         
         
         before_save :gen_markdown      
-        before_update :gen_markdown, if self.class.mdkeys.any? {|k| self.changes.key?(k.to_s) }  
+        before_update :gen_markdown, :if => Proc.new { self.mdkeys.any? {|k| self.changes.key?(k.to_s) }   }
       end   
     end    
       
@@ -33,7 +33,7 @@ module MongoMapperExt
     
     module ClassMethods 
       
-      def parser()
+      def parser
         return @parser
       end
       
