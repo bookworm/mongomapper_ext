@@ -5,14 +5,14 @@ module MongoMapperExt
         extend ClassMethods         
         
         before_save :gen_markdown      
-        before_update :gen_markdown
+        before_update :gen_markdown, if self.class.mdkeys.any? {|k| self.changes.key?(k.to_s) }  
       end   
     end    
       
-    def gen_markdown()  
+    def gen_markdown
       self.class.mdkeys.each do |k|    
         key_name = "#{k}_md"  
-        if !self.send(key_name.to_sym).blank?
+        if !self.send(k.to_sym).blank?
           if self.class.parser == 'kramdown'
             eval("self[:#{key_name}] = self.parse(self[:#{k}]).to_html")     
           else
