@@ -1,5 +1,5 @@
 # Extensions to improve spine compatibility on models
-module MongoMapper
+module MongoMapperExt
   module SpineCompat
     def created_at=(time=Time.now)
       time = Time.at(time) if time.is_a?(Integer)
