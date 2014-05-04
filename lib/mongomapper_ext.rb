@@ -43,6 +43,12 @@ require 'mongomapper_ext/markdown'
 # tags
 require 'mongomapper_ext/tags'
 
+# archiving
+require 'mongomapper_ext/archiver'
+
+# Spine.js Compatibility 
+require 'mongomapper_ext/spinecompat'
+
 module MongoMapperExt
   def self.init
     load_jsfiles(::File.dirname(__FILE__)+"/mongomapper_ext/js")
